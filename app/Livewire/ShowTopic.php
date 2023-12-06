@@ -240,18 +240,26 @@ class ShowTopic extends Component
     public function ChangeStatusTopic($id){
         $register = TopciTeacher::find($id);
         if ($register){
-            $status = $register->status;
-            if ($status == 2){
-                $register->status = 1 ;
-                $register->save();
-                $this->showTopic();
+            if(Carbon::today()->lessThanOrEqualTo($register->date)) {
+                $status = $register->status;
+                if ($status == 2){
+                    $register->status = 1 ;
+                    $register->save();
+                    $this->showTopic();
+                }
+                else {
+                    if ($register->status == 1){             
+                    $register->status = 2;
+                    $register->save();
+                    $this->showTopic();
+                    }
+                }
+
             }
             else {
-                if ($register->status == 1){             
                 $register->status = 2;
                 $register->save();
                 $this->showTopic();
-                }
             }
         }
     }
