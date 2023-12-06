@@ -28,8 +28,27 @@
                         @endforeach
                     </select>
                     @error('scheduleid')
-                    <span class="text-red-500">{{$message}}</span>
-                @enderror
+                        <span class="text-red-500">{{$message}}</span>
+                    @enderror
+                    <select name="sheduleone" id="sheduleone" class="mx-16 my-2 px-2 border-2 border-black rounded-md w-72" wire:model="scheduleidone" wire:input="scheduleidOneChanged">
+                        <option value="" class="px-32">Seleccione el Horario</option>
+                        @foreach ($schedules as $schedule)
+                            <option value="{{ $schedule->id }}" class="px-32">{{$schedule->day . '-' . $schedule->since . '-' . $schedule->until}}</option>
+                        @endforeach
+                    </select>
+                    @error('scheduleidone')
+                        <span class="text-red-500">{{$message}}</span>
+                    @enderror
+                    <select name="sheduletwo" id="sheduletwo" class="mx-16 px-2 border-2 border-black rounded-md w-72" wire:model="scheduleidtwo" wire:input="scheduleidTwoChanged">
+                        <option value="" class="px-32">Seleccione el Horario</option>
+                        @foreach ($schedules as $schedule)
+                            <option value="{{ $schedule->id }}" class="px-32">{{$schedule->day . '-' . $schedule->since . '-' . $schedule->until}}</option>
+                        @endforeach
+                    </select>
+                    <div class="text-red-500 mx-20">El tercer Horario no es requerido</div>
+                    @error('scheduleidtwo')
+                        <span class="text-red-500">{{$message}}</span>
+                    @enderror
                  </div>
                  <div class="mb-4">
                     <label>Sección:</label>

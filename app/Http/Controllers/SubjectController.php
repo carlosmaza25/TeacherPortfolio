@@ -18,16 +18,26 @@ class SubjectController extends Controller
 {
     public function index($subjectId , $cycleid) {
 
-        $plantilla = false;
-
+        $plantilla = false;;
         $name = session('name') ; 
+        $schedule = "";
 
         $id = session('id');
         $subject = Subject::find($subjectId);
         $subjectdetail = SubjectDetail::where('subjectid' , $subjectId)
                         ->where('teacherid' , session('id'))
                         ->where('cycledetailid' , $cycleid)->first();
-        $schedule = Schedule::where('id' , $subjectdetail->scheduleid)->first();
+        $scheduleid = Schedule::where('id' , $subjectdetail->scheduleid)->first();
+        $scheduleidone = Schedule::where('id' , $subjectdetail->scheduleidone)->first();
+        
+        // ----------------------------------------------Valida si existe un tercer horario y en caso de no existir no lo toma en cuenta para mostrarlo //---------------------------
+        if (!$scheduleidone === null) {
+            $schedule = $scheduleid->day . ' de ' . $scheduleid->since . ' a ' . $scheduleid->until . ' y ' . 
+                    $scheduleidone->day . ' de ' . $scheduleidone->since . ' a ' . $scheduleidone->until;
+        }
+        else {
+            $schedule =  $schedule = $scheduleid->day . ' de ' . $scheduleid->since . ' a ' . $scheduleid->until ;
+        }
 
         $socialProfile = SocialProfile::where('teacherid' , $id)->first() ;
         $cycle = CycleDetail::find($cycleid);

@@ -23,12 +23,12 @@
 
                 <div class="flex flex-row">
                     <label for="" class="px-4">Horario:</label>
-                    <label for="">{{$schedule->day . ' ' . $schedule->since . ' ' . $schedule->until}}</label>
+                    <label for="">{{ $schedule }}</label>
                 </div>
 
                 <div class="flex flex-row my-4">
                     <label for="" class="px-4">Horas:</label>
-                    <label for="">{{$schedule->day . ' ' . $schedule->since . ' ' . $schedule->until}}</label>
+                    <label for=""></label>
                 </div>
 
             </div>

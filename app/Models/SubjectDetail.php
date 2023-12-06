@@ -23,6 +23,8 @@ class SubjectDetail extends Model
         'teacherid',
         'cycledetailid',
         'scheduleid',
+        'scheduleidone',
+        'scheduleidtwo',
         'classroom',
     ];
 
@@ -40,6 +42,12 @@ class SubjectDetail extends Model
     }
     public function schedules() {
         return $this->hasMany(Schedule::class , 'id' , 'scheduleid');
+    }
+    public function schedulesforone() {
+        return $this->hasMany(Schedule::class , 'id' , 'scheduleidone');
+    }
+    public function schedulesfortwo() {
+        return $this->hasMany(Schedule::class , 'id' , 'scheduleidtwo');
     }
     public function sections () {
         return $this->hasMany(Section::class , 'sectionid' , 'sectionid');

@@ -15,7 +15,7 @@ class CreateSubjects extends Component
 
     public $isOpen = false ;
     public $subjectid , $teacherid , $sectionid , $cycleid;
-    public $scheduleid;
+    public $scheduleid , $scheduleidone , $scheduleidtwo;
     public $detailSchedule;
     public $scheduleDay , $scheduleSince , $scheduleUntil;
     public $classroom;
@@ -44,6 +44,7 @@ class CreateSubjects extends Component
         $this->scheduleSince = $this->detailSchedule[1];
         $this->scheduleUntil = $this->detailSchedule[2] ;
         $scheduleSubjectTeacher = Schedule::where('day' , $this->scheduleDay)->where('since' , $this->scheduleSince)->where('until' , $this->scheduleUntil)->first();
+        $scheduleidone = Schedule::find($this->scheduleidone);
 
         SubjectDetail::create([
             'subjectid' => $subject->subjectid,
@@ -51,11 +52,14 @@ class CreateSubjects extends Component
             'teacherid' => $this->teacherid,
             'cycledetailid' => $this->cycleid->cycledetailid,
             'scheduleid' => $scheduleSubjectTeacher->id,
+            'scheduleidone' => $scheduleidone->id,
+            'scheduleidtwo' => $this->scheduleidtwo,
             'classroom' => $this->classroom
         ]);
 
         if (session('usertype') == 1){
-            return redirect()->route('subject.admin' , $this->cycleid);
+           // return redirect()->route('subject.admin' , $this->cycleid);
+           dd($scheduleidone);
         }
             return redirect()->route('home.index' , $this->cycleid) ;
     }
@@ -94,6 +98,16 @@ class CreateSubjects extends Component
     public function scheduleidChanged(){
         $this->scheduleid;
         $this->resetValidation('scheduleid');
+    }
+
+    public function scheduleidOneChanged(){
+        $this->scheduleidone;
+        $this->resetValidation('scheduleidone');
+    }
+
+    public function scheduleidTwoChanged(){
+        $this->scheduleidtwo;
+        $this->resetValidation('scheduleidtwo');
     }
 
     public function sectionidChanged(){

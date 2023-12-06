@@ -10,6 +10,7 @@ class CustomValidationMessages
             'subjectid' => 'required',
             'sectionid' => 'required',
             'scheduleid' => 'required',
+            'scheduleidone' => 'required',
             'classroom' => 'required',
         ];
     }
@@ -20,6 +21,7 @@ class CustomValidationMessages
             'subjectid.required' => 'El campo de la materia es obligatorio.',
             'sectionid.required' => 'El campo de la sección es obligatorio.',
             'scheduleid.required' => 'El campo del horario es obligatorio.',
+            'scheduleidone.required' => 'Se requieren al menos un segundo horario.',
             'classroom.required' => 'El campo del aula es obligatorio.',
         ];
     }
