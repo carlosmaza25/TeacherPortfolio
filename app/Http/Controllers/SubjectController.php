@@ -31,12 +31,12 @@ class SubjectController extends Controller
         $scheduleidone = Schedule::where('id' , $subjectdetail->scheduleidone)->first();
         
         // ----------------------------------------------Valida si existe un tercer horario y en caso de no existir no lo toma en cuenta para mostrarlo //---------------------------
-        if (!$scheduleidone === null) {
-            $schedule = $scheduleid->day . ' de ' . $scheduleid->since . ' a ' . $scheduleid->until . ' y ' . 
-                    $scheduleidone->day . ' de ' . $scheduleidone->since . ' a ' . $scheduleidone->until;
+        if ($scheduleidone === null) {
+            $schedule =  $schedule = $scheduleid->day . ' de ' . $scheduleid->since . ' a ' . $scheduleid->until ;
         }
         else {
-            $schedule =  $schedule = $scheduleid->day . ' de ' . $scheduleid->since . ' a ' . $scheduleid->until ;
+            $schedule = $scheduleid->day . ' de ' . $scheduleid->since . ' a ' . $scheduleid->until . ' y ' . 
+            $scheduleidone->day . ' de ' . $scheduleidone->since . ' a ' . $scheduleidone->until;
         }
 
         $socialProfile = SocialProfile::where('teacherid' , $id)->first() ;
@@ -64,6 +64,6 @@ class SubjectController extends Controller
                     compact('name' , 'socialProfile' , 
                     'plantilla' , 'subject' , 'informationcycle',
                     'subjectdetail', 'schedule' , 'objectivesteacher',
-                    'periods', 'topicsteacher' ,'cycle' , 'subjectId'));  
+                    'periods', 'topicsteacher' ,'cycle' , 'subjectId'));
     }
 }

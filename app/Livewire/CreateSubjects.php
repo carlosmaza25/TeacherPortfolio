@@ -58,8 +58,7 @@ class CreateSubjects extends Component
         ]);
 
         if (session('usertype') == 1){
-           // return redirect()->route('subject.admin' , $this->cycleid);
-           dd($scheduleidone);
+            return redirect()->route('subject.admin' , $this->cycleid);
         }
             return redirect()->route('home.index' , $this->cycleid) ;
     }
