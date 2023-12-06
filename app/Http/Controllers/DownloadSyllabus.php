@@ -25,13 +25,24 @@ use PhpOffice\PhpWord\Writer\Word2007\Style\Table as StyleTable;
 class DownloadSyllabus extends Controller
 {
     public function downloadSyllabus($cycleid , $subjectid){
+        $schedule = "" ;
         $cont = 0;
         $suject = Subject::find($subjectid);
         $subjectdetail = SubjectDetail::where('subjectid' , $subjectid)->where('teacherid' , session('id'))->where('cycledetailid' , $cycleid)->first();
         $curriculumsubject = CurriculumSubject::where('subjectid' , $subjectid)->first();
         $curriculumcareer =  CurriculumCareer::where('curriculumcareerid' , $curriculumsubject->curriculumcareerid)->first();
         $prerequisite = Subject::find($curriculumsubject->prerequisiteid);
-        $schedule = Schedule::find($subjectdetail->scheduleid);
+        $scheduleid = Schedule::find($subjectdetail->scheduleid);
+        $scheduleidone = Schedule::find($subjectdetail->scheduleidone);
+        $scheduleidtwo = Schedule::find($subjectdetail->scheduleidtwo);
+        if ($scheduleidtwo === null) {
+            $schedule = $scheduleid->day . ' de ' . $scheduleid->since . ' a ' . $scheduleid->until . ' y ' . 
+                        $scheduleidone->day . ' de ' . $scheduleidone->since . ' a ' . $scheduleidone->until ;
+        }else {
+            $schedule = $scheduleid->day . ' de ' . $scheduleid->since . ' a ' . $scheduleid->until . ' y ' . 
+                        $scheduleidone->day . ' de ' . $scheduleidone->since . ' a ' . $scheduleidone->until . ' y ' .
+                        $scheduleidtwo->day . ' de ' . $scheduleidtwo->since . ' a ' . $scheduleidtwo->until;
+        }
         $career = Careers::find($curriculumcareer->careerid);
         $classsection = Section::find($subjectdetail->sectionid);
         $teacher = Teacher::find(session('id'));
@@ -112,7 +123,7 @@ class DownloadSyllabus extends Controller
         $table->addCell()->addText($career->description , $stylefonttable);
         $table->addRow();
         $table->addCell()->addText('Horario de Clases: ' , $stylefonttable);
-        $table->addCell()->addText($schedule->day . ' de ' . $schedule->since . ' hasta ' . $schedule->until , $stylefonttable);
+        $table->addCell()->addText($schedule , $stylefonttable);
         $table->addRow();
         $table->addCell()->addText('Aula: ' , $stylefonttable);
         $table->addCell()->addText($subjectdetail->classroom , $stylefonttable);
