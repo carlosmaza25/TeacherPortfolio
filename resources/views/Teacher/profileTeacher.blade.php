@@ -6,7 +6,11 @@
 
     <div class="container flex flex-row py-10">
         <div class="flex flex-col justify-center items-center w-64 h-64 border-2 border-black p-2 bg-blue-200">
-            <img src="{{$socialProfile->socialavatar}}" alt="" class="rounded-full w-40 h-40">
+            @if ($avatarteacher === null)
+                <img src="{{ asset('img/logo.png') }}" alt="" class="rounded-full w-40 h-40">
+            @else
+                <img src="{{ $avatarteacher->socialavatar }}" alt="" class="rounded-full w-40 h-40">
+            @endif
             <h1>{{$datesuser->name . ' ' . $datesuser->lastname}}</h1>
             <h1>Ingenieria y Arquitectura</h1>
         </div>

@@ -42,7 +42,12 @@
          </div>
             <div class="-my-4 px-5 flex justify-end">
              <div class="-my-8">
-                <a href="{{route('teacher.index' , ['id' => session('id')])}}"><img src="{{$socialProfile->socialavatar}}" class="w-12 h-12 rounded-full mx-2 my-2"></a>
+                @if ($socialProfile === null)
+                    <a href="{{route('teacher.index' , ['id' => session('id')])}}"><img src="{{ asset('img/logo.png') }}" class="w-12 h-12 rounded-full mx-2 my-2"></a>
+                @else
+                    <a href="{{route('teacher.index' , ['id' => session('id')])}}"><img src="{{ $socialProfile->socialavatar }}" class="w-12 h-12 rounded-full mx-2 my-2"></a>
+                @endif
+                
              </div>
                 <select name="" id="information" class="bg-color bg-blue-200 h-9 w-60 rounded-xl -my-5">
                     <option value="user" class="">{{$name}}</option>

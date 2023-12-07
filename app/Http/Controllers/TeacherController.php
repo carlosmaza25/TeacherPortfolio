@@ -14,7 +14,8 @@ class TeacherController extends Controller
         session(['teachertoupdate' => $id]);
         $plantilla = '' ;
         $name = session('name');
-        $socialProfile =  SocialProfile::where('teacherid' , $id)->first() ;
+        $socialProfile =  SocialProfile::where('teacherid' , session('id'))->first() ;
+        $avatarteacher = SocialProfile::where('teacherid' , $id)->first() ;
         $datesuser = Teacher::where('teacherid' , $id)->first();
 
         if (session('usertype') == 1) {
@@ -24,7 +25,7 @@ class TeacherController extends Controller
             $plantilla = false ;
         }
 
-        return view('Teacher.profileTeacher' , compact('name' , 'socialProfile' , 'datesuser' , 'plantilla'));
+        return view('Teacher.profileTeacher' , compact('name' , 'socialProfile' , 'datesuser' , 'plantilla' , 'avatarteacher'));
     }
 
     public function update (Request $request) {
